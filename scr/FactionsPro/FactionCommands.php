@@ -255,7 +255,7 @@ class FactionCommands {
 						$sender->sendMessage($this->plugin->formatMessage("You successfully kicked $args[1]!", true));
 						$players[] = $this->plugin->getServer()->getOnlinePlayers();
 						if(in_array($args[1], $players) == true) {
-							$this->plugin->getServer()->getPlayer($args[1])->sendMessage($this->plugin->formatMessage("You have been kicked from \n $factionName!, true"));
+							$this->plugin->getServer()->getPlayer($args[1])->sendMessage($this->plugin->formatMessage("You have been kicked from $factionName!, true"));
 							$this->plugin->updateTag($args[1]);
 							return true;
 						}
@@ -272,12 +272,12 @@ class FactionCommands {
 							$faction = strtolower($args[1]);
 							$leader = $this->plugin->getLeader($faction);
 							$numPlayers = $this->plugin->getNumberOfPlayers($faction);
-							$sender->sendMessage(TextFormat::BOLD . "-------------------------");
+							$sender->sendMessage(TextFormat::GREEN . "-------------------------");
 							$sender->sendMessage("$faction");
-							$sender->sendMessage(TextFormat::BOLD . "Leader: " . TextFormat::RESET . "$leader");
-							$sender->sendMessage(TextFormat::BOLD . "# of Players: " . TextFormat::RESET . "$numPlayers");
-							$sender->sendMessage(TextFormat::BOLD . "MOTD: " . TextFormat::RESET . "$message");
-							$sender->sendMessage(TextFormat::BOLD . "-------------------------");
+							$sender->sendMessage(TextFormat::YELLOW . "Leader: " . TextFormat::RESET . "$leader");
+							$sender->sendMessage(TextFormat::RED . "Player's That In Factions: " . TextFormat::RESET . "$numPlayers /20");
+							$sender->sendMessage(TextFormat::BLUE . "MOTD: " . TextFormat::RESET . "$message");
+							$sender->sendMessage(TextFormat::GREEN . "-------------------------");
 						} else {
 							$faction = $this->plugin->getPlayerFaction(strtolower($sender->getName()));
 							$result = $this->plugin->db->query("SELECT * FROM motd WHERE faction='$faction';");
@@ -285,24 +285,24 @@ class FactionCommands {
 							$message = $array["message"];
 							$leader = $this->plugin->getLeader($faction);
 							$numPlayers = $this->plugin->getNumberOfPlayers($faction);
-							$sender->sendMessage(TextFormat::BOLD . "-------------------------");
+							$sender->sendMessage(TextFormat::GREEN . "-------------------------");
 							$sender->sendMessage("$faction");
-							$sender->sendMessage(TextFormat::BOLD . "Leader: " . TextFormat::RESET . "$leader");
-							$sender->sendMessage(TextFormat::BOLD . "# of Players: " . TextFormat::RESET . "$numPlayers");
-							$sender->sendMessage(TextFormat::BOLD . "MOTD: " . TextFormat::RESET . "$message");
-							$sender->sendMessage(TextFormat::BOLD . "-------------------------");
+							$sender->sendMessage(TextFormat::YELLOW . "Leader: " . TextFormat::RESET . "$leader");
+							$sender->sendMessage(TextFormat::RED . "Player's That In The Factions: " . TextFormat::RESET . "$numPlayers /20");
+							$sender->sendMessage(TextFormat::BLUE . "MOTD: " . TextFormat::RESET . "$message");
+							$sender->sendMessage(TextFormat::GREEN . "-------------------------");
 						}
 					}
 					if(strtolower($args[0]) == "help") {
 						if(!isset($args[1]) || $args[1] == 1) {
-							$sender->sendMessage(TextFormat::YELLOW . "Factions Help Page 1 of 3" . TextFormat::GREEN . "\n/f about\n/f accept\n/f claim\n/f create <name>\n/f del\n/f demote <player>\n/f deny");
+							$sender->sendMessage(TextFormat::YELLOW . "Factions Help Page 1 of 3" . TextFormat::GREEN . "\n/f about\n/f accept\n/f create <name>\n/f del\n/f demote <player>\n/f deny\n/f leave");
 							return true;
 						}
 						if($args[1] == 2) {
-							$sender->sendMessage(TextFormat::YELLOW . "Factions Help Page 2 of 3" . TextFormat::GREEN . "\n/f home\n/f help <page>\n/f info\n/f info <faction>\n/f invite <player>\n/f kick <player>\n/f leader <player>\n/f leave");
+							$sender->sendMessage(TextFormat::YELLOW . "Factions Help Page 2 of 3" . TextFormat::GREEN . "\n/f home\n/f help <page>\n/f info\n/f info <faction>\n/f invite <player>\n/f kick <player>\n/f leader <player>\n/f motd");
 							return true;
 						} else {
-							$sender->sendMessage(TextFormat::YELLOW . "FactionsPro Help Page 3 of 3" . TextFormat::GREEN . "\n/f motd\n/f promote <player>\n/f sethome\n/f unclaim\n/f unsethome");
+							$sender->sendMessage(TextFormat::YELLOW . "Factions Help Page 3 of 3" . TextFormat::GREEN . "\n/f promote <player>\n/f sethome\n\n/f unsethome");
 							return true;
 						}
 					}
@@ -313,11 +313,11 @@ class FactionCommands {
 					
 					if(strtolower($args[0]) == 'claim') {
 						if(!$this->plugin->isInFaction($player)) {
-							$sender->sendMessage($this->plugin->formatMessage("You must be in a faction."));
+							$sender->sendMessage($this->plugin->formatMessage("CLAIMS ARE DISABLED!!"));
 							return true;
 						}
 						if(!$this->plugin->isLeader($player)) {
-							$sender->sendMessage($this->plugin->formatMessage("You must be leader to use this."));
+							$sender->sendMessage($this->plugin->formatMessage("CLAIMS ARE DISABLED!"));
 							return true;
 						}
 						if($this->plugin->inOwnPlot($sender)) {
@@ -507,7 +507,7 @@ class FactionCommands {
 					/////////////////////////////// ABOUT ///////////////////////////////
 					
 					if(strtolower($args[0] == 'about')) {
-						$sender->sendMessage(TextFormat::BLUE . "FactionsPro v1.3.0 by " . TextFormat::BOLD . "Tethered_\n" . TextFormat::RESET . TextFormat::BLUE . "Edited: " . TextFormat::ITALIC . "by @MyrulXzavier");
+						$sender->sendMessage(TextFormat::RED . "Factions by " . TextFormat::ITALIC . "Tethered_\n" . TextFormat::RESET . TextFormat::GREEN . "Edited: " . TextFormat::ITALIC . "by @MyrulXzavier");
 					}
 				}
 			}
